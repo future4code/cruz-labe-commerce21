@@ -20,14 +20,14 @@ class App extends React.Component {
       },
       {
         produtoFoto: 'https://assets.catawiki.nl/assets/2019/9/25/8/d/7/8d70eed1-a1a1-4cd5-8b0b-fe41f8eb8e88.jpg',
-        produtoNome:'Enstatite',
+        produtoNome:'Enstatita',
         produtoPreco:300,
         carrinhoQuantidade: 0,
         carrinhoPreco: 0,
       },
       {
         produtoFoto: 'https://www.mindat.org/imagecache/cb/bf/08031870014977519275126.jpg',
-        produtoNome:'Lucrecio',
+        produtoNome:'Creuza',
         produtoPreco:400,
         carrinhoQuantidade: 0,
         carrinhoPreco: 0,
@@ -90,17 +90,18 @@ class App extends React.Component {
     const produtoFiltrado = this.state.produtos.filter ( produto => {
 
         //REGEX para o filtro por palavra com apenas algumas letras
-        let regex = new RegExp('['+produto.produtoNome+']{3,}', "gmi")
-        let resultadoBusca = regex.test(this.state.valorInputNome)
+        let regex = new RegExp('['+this.state.valorInputNome+']{4,}', "gmi")
+        let resultadoBusca = regex.test(produto.produtoNome)
 
         if ((
           produto.produtoNome === this.state.valorInputNome || 
-          this.state.valorInputNome === '' ||
-          resultadoBusca
+          this.state.valorInputNome === '' 
           ) 
         && produto.produtoPreco >= this.state.valorInputMinimo && produto.produtoPreco <= this.state.valorInputMaximo ) {
             return true
-        } 
+        } else if (resultadoBusca) {
+          return true
+        }
         return false
     })
 
