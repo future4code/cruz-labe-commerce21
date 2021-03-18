@@ -8,23 +8,29 @@
     align-items: center;
     justify-items: center;
     margin-bottom: 20px;
-    padding: 20px;
     margin: 10px ;
     flex-wrap: wrap;
+    max-width: 150px;
 }
 
 .produto-foto {
     /* margin-top: 20px; */
-    width: 100px;
-    height: 100px;
+    /* width: 100%; */
+    min-width: 150px;
+    height: 120px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-
+    box-sizing: border-box;
+    border: 2px double yellow;
 }
 
 img {
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    height: 100%;
 }
 
+.produto-texto {
+    padding: 20px;
+
+}

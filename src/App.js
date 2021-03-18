@@ -12,21 +12,21 @@ class App extends React.Component {
     valorInputNome: '',
     produtos: [
       {
-        produtoFoto: 'https://lh3.googleusercontent.com/proxy/Wxg6PfKQ7u9m2g2FUFQFiC9AW3GRwzRnvc0lAylT8LtKz0sx_mB0NgK8RkNqJCsbUjaoiOB17Mvdk_R4MEvTPJ9YIOi7ZS5Hq37LxAiStZbM9mS0POyG_EUwYHGYdMF9yMgGUMAT',
+        produtoFoto: 'https://www.mindat.org/imagecache/71/e9/08031440014977519277454.jpg',
         produtoNome:'Chondrite',
         produtoPreco:200,
         carrinhoQuantidade: 0,
         carrinhoPreco: 0,
       },
       {
-        produtoFoto: 'https://s2.glbimg.com/jgwIBrgg_aOkcaWpvi0lZ8gAvEQ=/e.glbimg.com/og/ed/f/original/2020/08/28/5f47ac84e1e87.jpg',
+        produtoFoto: 'https://assets.catawiki.nl/assets/2019/9/25/8/d/7/8d70eed1-a1a1-4cd5-8b0b-fe41f8eb8e88.jpg',
         produtoNome:'Enstatite',
         produtoPreco:300,
         carrinhoQuantidade: 0,
         carrinhoPreco: 0,
       },
       {
-        produtoFoto: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsGe9Djz_zgGPzap6HFBeDCfFo_PKzKCwI_A&usqp=CAU',
+        produtoFoto: 'https://www.mindat.org/imagecache/cb/bf/08031870014977519275126.jpg',
         produtoNome:'Lucrecio',
         produtoPreco:400,
         carrinhoQuantidade: 0,
@@ -86,8 +86,18 @@ class App extends React.Component {
       }
     })
 
+
     const produtoFiltrado = this.state.produtos.filter ( produto => {
-        if ((produto.produtoNome === this.state.valorInputNome || this.state.valorInputNome === '') 
+
+        //REGEX para o filtro por palavra com apenas algumas letras
+        let regex = new RegExp('['+produto.produtoNome+']{3,}', "gmi")
+        let resultadoBusca = regex.test(this.state.valorInputNome)
+
+        if ((
+          produto.produtoNome === this.state.valorInputNome || 
+          this.state.valorInputNome === '' ||
+          resultadoBusca
+          ) 
         && produto.produtoPreco >= this.state.valorInputMinimo && produto.produtoPreco <= this.state.valorInputMaximo ) {
             return true
         } 

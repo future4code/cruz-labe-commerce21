@@ -20,15 +20,17 @@ class Produto extends React.Component {
               <div className='produto-foto'>
                   <img className={'foto'} src={this.props.produtoFoto} alt={'Imagem do produto'}/>
               </div>
-              
-              <div className='produto-dados'>
+              <div className='produto-texto'>
+                <div className='produto-dados'>
+                  
+                  <p>{this.props.produtoNome}</p>
+                  <p>{this.props.produtoPreco}</p>
+                </div>
                 
-                <p>{this.props.produtoNome}</p>
-                <p>{this.props.produtoPreco}</p>
-              </div>
-              
-              <div className='produto-botao'>
-                  <button onClick={this.props.funcaoBotao}> {this.props.textoBotao} </button>
+                <div className='produto-botao'>
+                    <button onClick={this.props.funcaoBotao}> {this.props.textoBotao} </button>
+                </div>
+
               </div>
             </div>
   }
