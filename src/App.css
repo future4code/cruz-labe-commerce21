@@ -51,7 +51,7 @@
   border: 1px solid black; 
   padding: 20px;
   padding-top: 0px;
-
+  height: 450px;
   max-height: 450px;
 
 }
@@ -103,6 +103,7 @@
   padding-top: 0px;
 
   min-width: 250px;
+  height: 450px;
   max-height: 450px;
 }
 
