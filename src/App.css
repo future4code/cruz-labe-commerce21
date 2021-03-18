@@ -50,7 +50,9 @@
   /* flex-grow: 2; */
   border: 1px solid black; 
   padding: 20px;
-  max-height: 350px;
+  padding-top: 0px;
+
+  max-height: 450px;
 
 }
 
@@ -68,10 +70,16 @@
   width: 700px;
   align-items: center;
   /* flex-grow: 5; */
+  border: 1px solid #dddddd; 
+  padding: 20px;
+  padding-top: 0px;
+
+
 }
 .app-produtos > h4 {
   align-self: flex-start;
   /* justify-self: flex-start; */
+  margin-left: 27px;
 }
 
 .app-cards {
@@ -92,8 +100,10 @@
   /* flex-grow: 2; */
   border: 1px solid black; 
   padding: 20px;
+  padding-top: 0px;
+
   min-width: 250px;
-  max-height: 350px;
+  max-height: 450px;
 }
 
 
