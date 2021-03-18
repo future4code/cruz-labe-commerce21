@@ -50,6 +50,7 @@
   /* flex-grow: 2; */
   border: 1px solid black; 
   padding: 20px;
+  max-height: 350px;
 
 }
 
@@ -64,13 +65,20 @@
 .app-produtos{
   display: flex;
   flex-direction: column;
-  width: 400px;
+  width: 700px;
   align-items: center;
   /* flex-grow: 5; */
 }
+.app-produtos > h4 {
+  align-self: flex-start;
+  /* justify-self: flex-start; */
+}
+
 .app-cards {
   display: flex;
   flex-direction: row;
+  max-width: 700px;
+  flex-wrap: wrap;
 
 }
 
@@ -84,5 +92,12 @@
   /* flex-grow: 2; */
   border: 1px solid black; 
   padding: 20px;
+  min-width: 250px;
+  max-height: 350px;
+}
 
+
+app-carrinhos-produtos {
+  width: 500px;
+  min-width: 400px;
 }
