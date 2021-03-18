@@ -36,3 +36,53 @@
     transform: rotate(360deg);
   }
 }
+
+.app-container {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  margin: 30px;
+}
+
+.app-filtro {
+  display: flex;
+  flex-direction: column;
+  /* flex-grow: 2; */
+  border: 1px solid black; 
+  padding: 20px;
+
+}
+
+.app-inputs {
+  margin: 1px;
+}
+
+/* input {
+  margin: 2px;
+} */
+
+.app-produtos{
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  align-items: center;
+  /* flex-grow: 5; */
+}
+.app-cards {
+  display: flex;
+  flex-direction: row;
+
+}
+
+
+
+.app-carrinho {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-content: left;
+  /* flex-grow: 2; */
+  border: 1px solid black; 
+  padding: 20px;
+
+}
