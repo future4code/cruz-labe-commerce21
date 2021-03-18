@@ -148,7 +148,7 @@ class App extends React.Component {
               <Produto 
                 produtoFoto={produto.produtoFoto}
                 produtoNome={produto.produtoNome}
-                produtoPreco={produto.produtoPreco}
+                produtoPreco={`R$`+ produto.produtoPreco}
                 funcaoBotao={this.onClickAdicionarAoCarrinho}
                 textoBotao={'Adicionar ao carrinho!!!'}
               />
@@ -158,7 +158,7 @@ class App extends React.Component {
         </div>
         <div className='app-carrinho'>
           <h4>Carrinho: </h4>
-          <div>
+          <div className='app-carrinhos-produtos'>
 
           {produtosCarrinho.map( produto => {
             return (
