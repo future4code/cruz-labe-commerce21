@@ -12,6 +12,7 @@ class App extends React.Component {
     valorInputNome: '',
     produtos: [
       {
+        id: 1,
         produtoFoto: 'https://www.mindat.org/imagecache/71/e9/08031440014977519277454.jpg',
         produtoNome:'Chondrite',
         produtoPreco:200,
@@ -19,6 +20,7 @@ class App extends React.Component {
         carrinhoPreco: 0,
       },
       {
+        id: 2,
         produtoFoto: 'https://assets.catawiki.nl/assets/2019/9/25/8/d/7/8d70eed1-a1a1-4cd5-8b0b-fe41f8eb8e88.jpg',
         produtoNome:'Enstatita',
         produtoPreco:300,
@@ -26,6 +28,7 @@ class App extends React.Component {
         carrinhoPreco: 0,
       },
       {
+        id: 3,
         produtoFoto: 'https://www.mindat.org/imagecache/cb/bf/08031870014977519275126.jpg',
         produtoNome:'Creuza',
         produtoPreco:400,
@@ -33,7 +36,7 @@ class App extends React.Component {
         carrinhoPreco: 0,
       }
     ],
-    produtosCarrinho: [''],
+    // produtosCarrinho: this.state.produtos,
     carrinhoTotal: 0
   }
   
@@ -61,22 +64,80 @@ class App extends React.Component {
   // }
 
 
-  onClickAdicionarAoCarrinho = () => {
+  onClickAdicionarAoCarrinho = (produtoNome) => {
 
-
-    const novoProdutoNoCarrinho = {
-      carrinhoQuantidade: this.produto.carrinhoQuantidade + 1,
-      produtoNome: this.produto.nome, 
-      carrinhoPreco: this.produto.carrinhoPreco + this.produto.produtoPreco,
-    }
-    const NovosProdutosNoCarrinho = [...this.state.produtosCarrinho, novoProdutoNoCarrinho]
-    this.setState({ produtosCarrinho:  NovosProdutosNoCarrinho })
+    const novosProdutos = this.state.produtos.map((produto) => {
+      if(produtoNome === produto.produtoNome) {
+        const novoProduto = {
+          ...produto,
+          // produtoNome:'NovoNome',
+          carrinhoQuantidade: produto.carrinhoQuantidade + 1,
+          carrinhoPreco: produto.carrinhoPreco + produto.produtoPreco,
+          // carrinhoQuantidade: 1
+        }
+        return novoProduto
+      } else {
+        return produto
+      }
+    })
+    this.setState ({ produtos: novosProdutos })
   }
 
-  // deletar = () => {
-  //   this.setState({ this.state.produtos.produtosCarrinho.filter... :  })
-  //   atualiza, o q foi deletado.
-  // }
+  onClickDeletar = (produtoNome) => {
+    const novosProdutos = this.state.produtos.map((produto) => {
+      if(produtoNome === produto.produtoNome) {
+        const novoProduto = {
+          ...produto,
+          // produtoNome:'NovoNome',
+          carrinhoQuantidade: 0,
+          carrinhoPreco: 0,
+          // carrinhoQuantidade: 1
+        }
+        return novoProduto
+      } else {
+        return produto
+      }
+    })
+    this.setState ({ produtos: novosProdutos })
+  }
+
+  onClickDiminuir = (produtoNome) => {
+    const novosProdutos = this.state.produtos.map((produto) => {
+      if(produtoNome === produto.produtoNome) {
+        const novoProduto = {
+          ...produto,
+          // produtoNome:'NovoNome',
+          carrinhoQuantidade: produto.carrinhoQuantidade - 1,
+          carrinhoPreco: produto.carrinhoPreco - produto.produtoPreco,
+          // carrinhoQuantidade: 1
+        }
+        return novoProduto
+      } else {
+        return produto
+      }
+    })
+    this.setState ({ produtos: novosProdutos })
+  }
+
+  onClickAumentar = (produtoNome) => {
+    const novosProdutos = this.state.produtos.map((produto) => {
+      if(produtoNome === produto.produtoNome) {
+        const novoProduto = {
+          ...produto,
+          // produtoNome:'NovoNome',
+          carrinhoQuantidade: produto.carrinhoQuantidade + 1,
+          carrinhoPreco: produto.carrinhoPreco + produto.produtoPreco,
+          // carrinhoQuantidade: 1
+        }
+        return novoProduto
+      } else {
+        return produto
+      }
+    })
+    this.setState ({ produtos: novosProdutos })
+  }
+
+
 
   render() {
 
@@ -85,6 +146,20 @@ class App extends React.Component {
         return true
       }
     })
+
+    const valorTotalCarrinho = this.state.produtos.reduce ( (total, produto) => {
+      return total + produto.carrinhoPreco
+    }, 0) 
+
+
+    // const precoCarrinho = this.state.produtos.filter ( produto => {
+    //   const precoTotalCarrinho = 0
+    //   if (produto.carrinhoQuantidade > 0) {
+    //     precoTotalCarrinho + produtoPreco
+    //     return precoTotalCarrinho
+    //   }
+    // })
+
 
 
     const produtoFiltrado = this.state.produtos.filter ( produto => {
@@ -149,9 +224,13 @@ class App extends React.Component {
                 produtoFoto={produto.produtoFoto}
                 produtoNome={produto.produtoNome}
                 produtoPreco={`R$`+ produto.produtoPreco}
-                funcaoBotao={this.onClickAdicionarAoCarrinho}
-                textoBotao={'Adicionar ao carrinho!!!'}
+                textoBotao={'Adicionar ao carrinho?'}
+                funcao={() => this.onClickAdicionarAoCarrinho(produto.produtoNome)}
+
               />
+              //   {'clique para função'}
+              // </Produto>
+  
             )
           })}
           </div>
@@ -164,10 +243,17 @@ class App extends React.Component {
             return (
             <ProdutoCarrinho 
               carrinhoQuantidade={produto.carrinhoQuantidade}
-              produtoNome={produto.produtoNome} 
+              produtoNome={produto.produtoNome}
+              funcaoCarrinhoDeletar={() => this.onClickDeletar(produto.produtoNome)}
+              funcaoCarrinhoAumentar={() => this.onClickAumentar(produto.produtoNome)} 
+              funcaoCarrinhoDiminuir={() => this.onClickDiminuir(produto.produtoNome)} 
+ 
             />
             )
           })}
+            <div className='valor-total'>
+            Valor Total: R$ {valorTotalCarrinho}
+            </div>
 
           </div>
         </div>
