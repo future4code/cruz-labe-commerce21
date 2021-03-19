@@ -7,22 +7,23 @@ import ProdutoCarrinho from './ProdutoCarrinho'
 class App extends React.Component {
 
   state = {
+    valorSelectOrdem: 0,
     valorInputMinimo: 100,
-    valorInputMaximo: 500,
+    valorInputMaximo: 800,
     valorInputNome: '',
     produtos: [
       {
         id: 1,
         produtoFoto: 'https://www.mindat.org/imagecache/71/e9/08031440014977519277454.jpg',
-        produtoNome:'Chondrite',
-        produtoPreco:200,
+        produtoNome:'Chondrite-1',
+        produtoPreco:600,
         carrinhoQuantidade: 0,
         carrinhoPreco: 0,
       },
       {
         id: 2,
         produtoFoto: 'https://assets.catawiki.nl/assets/2019/9/25/8/d/7/8d70eed1-a1a1-4cd5-8b0b-fe41f8eb8e88.jpg',
-        produtoNome:'Enstatita',
+        produtoNome:'Enstatita-2',
         produtoPreco:300,
         carrinhoQuantidade: 0,
         carrinhoPreco: 0,
@@ -30,7 +31,7 @@ class App extends React.Component {
       {
         id: 3,
         produtoFoto: 'https://www.mindat.org/imagecache/cb/bf/08031870014977519275126.jpg',
-        produtoNome:'Creuza',
+        produtoNome:'Druida-3',
         produtoPreco:400,
         carrinhoQuantidade: 0,
         carrinhoPreco: 0,
@@ -40,6 +41,9 @@ class App extends React.Component {
     carrinhoTotal: 0
   }
   
+  onChangeSelectOrdem = (event, produtoPreco) => {
+    this.setState( { valorSelectOrdem: event.target.value } )
+  }
   onChangeInputMinimo = (event) =>{
     this.setState( { valorInputMinimo: event.target.value } )
   }
@@ -51,18 +55,6 @@ class App extends React.Component {
   onChangeInputNome =(event) => {
     this.setState( { valorInputNome: event.target.value } )
   }
-
-  // criaTarefa = () => {
-  //   const novaTarefa = {
-  //     id: Date.now(),    // ! método novo! 
-  //     texto: this.state.inputValue, //! sempre receber o valor do input que foi para o estado!
-  //     completa: false
-  //   }
-  //   const novasTarefas = [...this.state.tarefas, novaTarefa]
-  //   this.setState({ tarefas: novasTarefas })
-  //   console.log('Tarefa Criada!')
-  // }
-
 
   onClickAdicionarAoCarrinho = (produtoNome) => {
 
@@ -88,10 +80,8 @@ class App extends React.Component {
       if(produtoNome === produto.produtoNome) {
         const novoProduto = {
           ...produto,
-          // produtoNome:'NovoNome',
           carrinhoQuantidade: 0,
           carrinhoPreco: 0,
-          // carrinhoQuantidade: 1
         }
         return novoProduto
       } else {
@@ -99,6 +89,7 @@ class App extends React.Component {
       }
     })
     this.setState ({ produtos: novosProdutos })
+
   }
 
   onClickDiminuir = (produtoNome) => {
@@ -106,10 +97,8 @@ class App extends React.Component {
       if(produtoNome === produto.produtoNome) {
         const novoProduto = {
           ...produto,
-          // produtoNome:'NovoNome',
           carrinhoQuantidade: produto.carrinhoQuantidade - 1,
           carrinhoPreco: produto.carrinhoPreco - produto.produtoPreco,
-          // carrinhoQuantidade: 1
         }
         return novoProduto
       } else {
@@ -124,10 +113,8 @@ class App extends React.Component {
       if(produtoNome === produto.produtoNome) {
         const novoProduto = {
           ...produto,
-          // produtoNome:'NovoNome',
           carrinhoQuantidade: produto.carrinhoQuantidade + 1,
           carrinhoPreco: produto.carrinhoPreco + produto.produtoPreco,
-          // carrinhoQuantidade: 1
         }
         return novoProduto
       } else {
@@ -137,9 +124,59 @@ class App extends React.Component {
     this.setState ({ produtos: novosProdutos })
   }
 
-
-
   render() {
+
+  
+    const chamarProdutoOrdenado = this.state.produtos.sort( (a, b) => {
+
+  
+      let valor1 = this.state.valorSelectOrdem === 2
+      let valor2 = this.state.valorSelectOrdem === 1
+
+ 
+            if(valor1 ) {
+
+              //decrescente
+            if (a.produtoPreco < b.produtoPreco) {
+              return 1
+            }
+            if (a.produtoPreco > b.produtoPreco) {
+              return -1
+            }
+            return  0
+
+      } else if (valor2) {
+
+          //crescente 
+          if (a.produtoPreco > b.produtoPreco) {
+            return 1
+          }
+          if (a.produtoPreco < b.produtoPreco) {
+            return -1
+          }
+          return  0
+          }
+        
+          })
+
+
+    const produtoFiltrado = chamarProdutoOrdenado.filter ( produto => {
+      
+
+        //REGEX para o filtro por palavra com apenas algumas letras
+        let regex = new RegExp('['+this.state.valorInputNome+']{4,}', "gmi")
+        let resultadoBusca = regex.test(produto.produtoNome)
+
+        if ((
+          produto.produtoNome === this.state.valorInputNome || 
+          this.state.valorInputNome === '' ||
+          resultadoBusca
+          ) 
+        && produto.produtoPreco >= this.state.valorInputMinimo && produto.produtoPreco <= this.state.valorInputMaximo ) {
+            return true
+        }
+        return false
+    })
 
     const produtosCarrinho = this.state.produtos.filter ( produto => {
       if (produto.carrinhoQuantidade > 0) {
@@ -152,40 +189,20 @@ class App extends React.Component {
     }, 0) 
 
 
-    // const precoCarrinho = this.state.produtos.filter ( produto => {
-    //   const precoTotalCarrinho = 0
-    //   if (produto.carrinhoQuantidade > 0) {
-    //     precoTotalCarrinho + produtoPreco
-    //     return precoTotalCarrinho
-    //   }
-    // })
-
-
-
-    const produtoFiltrado = this.state.produtos.filter ( produto => {
-
-        //REGEX para o filtro por palavra com apenas algumas letras
-        let regex = new RegExp('['+this.state.valorInputNome+']{4,}', "gmi")
-        let resultadoBusca = regex.test(produto.produtoNome)
-
-        if ((
-          produto.produtoNome === this.state.valorInputNome || 
-          this.state.valorInputNome === '' 
-          ) 
-        && produto.produtoPreco >= this.state.valorInputMinimo && produto.produtoPreco <= this.state.valorInputMaximo ) {
-            return true
-        } else if (resultadoBusca) {
-          return true
-        }
-        return false
-    })
-
-
     return (
       <div className="app-container">
         <div className='app-filtro'>
           <h4>Filtros: </h4>
           <div className='app-inputs'>
+          <p>Ordem</p>
+            <select 
+            onChange={this.onChangeSelectOrdem}
+            // onClick={ () => this.produtoOrdenado(this.state.valorSelectOrdem)}
+            >
+              <option value={1}>Crescente</option>
+              <option value={2}>Decrescente</option>
+            </select> 
+
             <p>Valor Mínimo</p>
             <input
                 type='number'

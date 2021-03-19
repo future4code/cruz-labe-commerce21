@@ -60,9 +60,9 @@
   margin: 1px;
 }
 
-/* input {
-  margin: 2px;
-} */
+input {
+  /* margin: 2px; */
+}
 
 .app-produtos{
   display: flex;

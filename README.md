@@ -23,7 +23,7 @@ https://github.com/future4code/cruz-labe-commerce21
 http://thoughtful-distance.surge.sh/
 
 ## Imagens: 
-
+![visualização da tela principal da aplicação](build/static/media/app-visualizacao.PNG)
 
 ## Briefing do projeto:  
 
