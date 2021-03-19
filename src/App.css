@@ -109,6 +109,15 @@
 
 
 app-carrinhos-produtos {
-  width: 500px;
-  min-width: 400px;
+  width: 700px;
+  min-width: 600px;
+}
+
+.produto-container {
+  min-width: 300px;
+}
+
+.produto-container > div > button {
+  margin-left: 8px;
+  margin-bottom: 2px;
 }
