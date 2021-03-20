@@ -12,7 +12,7 @@ http://wide-blade.surge.sh/
 - Marcos Maia  
 
 ## Imagens: 
-![](img/TelaPrincipal.PNG)
+![TelaPrincipal](https://user-images.githubusercontent.com/30267119/111857240-f05b6100-890e-11eb-869c-b7bb22c81ecb.PNG)
 
 ## Funcionalidades: 
 - Exibição de produtos 
