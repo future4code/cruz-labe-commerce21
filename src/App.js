@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Produto from './Produto'
 import ProdutoCarrinho from './ProdutoCarrinho'
@@ -7,23 +6,23 @@ import ProdutoCarrinho from './ProdutoCarrinho'
 class App extends React.Component {
 
   state = {
-    valorSelectOrdem: 0,
+    valorSelectOrdem: 'decrescente',
     valorInputMinimo: 100,
     valorInputMaximo: 800,
     valorInputNome: '',
     produtos: [
       {
         id: 1,
-        produtoFoto: 'https://www.mindat.org/imagecache/71/e9/08031440014977519277454.jpg',
-        produtoNome:'Chondrite-1',
+        produtoFoto: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/NWA869Meteorite.jpg/220px-NWA869Meteorite.jpg',
+        produtoNome:'Amanhecer',
         produtoPreco:600,
         carrinhoQuantidade: 0,
         carrinhoPreco: 0,
       },
       {
         id: 2,
-        produtoFoto: 'https://assets.catawiki.nl/assets/2019/9/25/8/d/7/8d70eed1-a1a1-4cd5-8b0b-fe41f8eb8e88.jpg',
-        produtoNome:'Enstatita-2',
+        produtoFoto: 'https://www.mindat.org/imagecache/71/e9/08031440014977519277454.jpg',
+        produtoNome:'Enstatita',
         produtoPreco:300,
         carrinhoQuantidade: 0,
         carrinhoPreco: 0,
@@ -31,17 +30,42 @@ class App extends React.Component {
       {
         id: 3,
         produtoFoto: 'https://www.mindat.org/imagecache/cb/bf/08031870014977519275126.jpg',
-        produtoNome:'Druida-3',
+        produtoNome:'Druida',
         produtoPreco:400,
         carrinhoQuantidade: 0,
         carrinhoPreco: 0,
+      },
+      {
+        id: 4,
+        produtoFoto: 'https://qmag.com///wp-content/uploads/2016/10/magnetite_on_white-300x265.jpg',
+        produtoNome:'Elementosa',
+        produtoPreco:450,
+        carrinhoQuantidade: 0,
+        carrinhoPreco: 0,
+      },
+      {
+        id: 5,
+        produtoFoto: 'https://upload.wikimedia.org/wikipedia/commons/b/bf/Allan_Hills_81005%2C_lunar_meteorite.jpg',
+        produtoNome:'Lunar',
+        produtoPreco:500,
+        carrinhoQuantidade: 0,
+        carrinhoPreco: 0,
+      },
+      {
+        id: 6,
+        produtoFoto: 'https://assets.catawiki.nl/assets/2019/9/25/8/d/7/8d70eed1-a1a1-4cd5-8b0b-fe41f8eb8e88.jpg',
+        produtoNome:'Chondrite',
+        produtoPreco:250,
+        carrinhoQuantidade: 0,
+        carrinhoPreco: 0,
       }
+
     ],
     // produtosCarrinho: this.state.produtos,
     carrinhoTotal: 0
   }
   
-  onChangeSelectOrdem = (event, produtoPreco) => {
+  onChangeSelectOrdem = (event) => {
     this.setState( { valorSelectOrdem: event.target.value } )
   }
   onChangeInputMinimo = (event) =>{
@@ -126,43 +150,8 @@ class App extends React.Component {
 
   render() {
 
-  
-    const chamarProdutoOrdenado = this.state.produtos.sort( (a, b) => {
-
-  
-      let valor1 = this.state.valorSelectOrdem === 2
-      let valor2 = this.state.valorSelectOrdem === 1
-
- 
-            if(valor1 ) {
-
-              //decrescente
-            if (a.produtoPreco < b.produtoPreco) {
-              return 1
-            }
-            if (a.produtoPreco > b.produtoPreco) {
-              return -1
-            }
-            return  0
-
-      } else if (valor2) {
-
-          //crescente 
-          if (a.produtoPreco > b.produtoPreco) {
-            return 1
-          }
-          if (a.produtoPreco < b.produtoPreco) {
-            return -1
-          }
-          return  0
-          }
-        
-          })
-
-
-    const produtoFiltrado = chamarProdutoOrdenado.filter ( produto => {
+    const produtoFiltrado = this.state.produtos.filter ( produto => {
       
-
         //REGEX para o filtro por palavra com apenas algumas letras
         let regex = new RegExp('['+this.state.valorInputNome+']{4,}', "gmi")
         let resultadoBusca = regex.test(produto.produtoNome)
@@ -177,6 +166,17 @@ class App extends React.Component {
         }
         return false
     })
+
+    //ORDENAÇÃO COM MÉTODO SORT
+    const produtoOrdenado = produtoFiltrado.sort( (a, b) => {
+    return this.state.valorSelectOrdem === 'crescente' ? 
+    a.produtoPreco - b.produtoPreco : b.produtoPreco - a.produtoPreco 
+    })
+
+    const valorTotalProdutos = produtoFiltrado.reduce ( (total, produto) => {
+      return total + 1
+    }, 0) 
+
 
     const produtosCarrinho = this.state.produtos.filter ( produto => {
       if (produto.carrinhoQuantidade > 0) {
@@ -196,11 +196,11 @@ class App extends React.Component {
           <div className='app-inputs'>
           <p>Ordem</p>
             <select 
+            value={this.state.valorSelectOrdem}
             onChange={this.onChangeSelectOrdem}
-            // onClick={ () => this.produtoOrdenado(this.state.valorSelectOrdem)}
             >
-              <option value={1}>Crescente</option>
-              <option value={2}>Decrescente</option>
+              <option value='crescente'>Crescente</option>
+              <option value='decrescente'>Decrescente</option>
             </select> 
 
             <p>Valor Mínimo</p>
@@ -231,22 +231,20 @@ class App extends React.Component {
           </div>
         </div>
         <div className='app-produtos'>
-          <h4>Quantidade de produtos: </h4> 
+          <h4>Quantidade de produtos: {valorTotalProdutos} </h4> 
           <div className='app-cards'>
 
 
-          {produtoFiltrado.map(produto => {
+          {produtoOrdenado.map(produto => {
             return (
               <Produto 
                 produtoFoto={produto.produtoFoto}
                 produtoNome={produto.produtoNome}
                 produtoPreco={`R$`+ produto.produtoPreco}
-                textoBotao={'Adicionar ao carrinho?'}
+                textoBotao={'Adicionar ao carrinho'}
                 funcao={() => this.onClickAdicionarAoCarrinho(produto.produtoNome)}
 
               />
-              //   {'clique para função'}
-              // </Produto>
   
             )
           })}
