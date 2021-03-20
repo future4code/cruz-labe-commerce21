@@ -17,13 +17,15 @@ https://github.com/future4code/cruz-labe-commerce21
 - Carrinho de compras
 - Botões de Excluir produto, aumentar ou diminuir itens do carrinho de compras
 - Soma total de valores incluídos no Carrinho de Compras
+- Filtro de ordem para exibição dos produtos em ordem crescente ou decrescente
+- Quantidade total de produtos atualizada conforme filtros são aplicados.
 
 
 ## Link do surge:
 http://thoughtful-distance.surge.sh/
 
 ## Imagens: 
-
+![visualização da tela principal da aplicação](build/static/media/app-visualizacao.PNG)
 
 ## Briefing do projeto:  
 
