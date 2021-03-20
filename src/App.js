@@ -240,7 +240,7 @@ class App extends React.Component {
               <Produto 
                 produtoFoto={produto.produtoFoto}
                 produtoNome={produto.produtoNome}
-                produtoPreco={`R$`+ produto.produtoPreco}
+                produtoPreco={`R$`+ produto.produtoPreco+`,00`}
                 textoBotao={'Adicionar ao carrinho'}
                 funcao={() => this.onClickAdicionarAoCarrinho(produto.produtoNome)}
 
@@ -267,7 +267,7 @@ class App extends React.Component {
             )
           })}
             <div className='valor-total'>
-            Valor Total: R$ {valorTotalCarrinho}
+            Valor Total: R$ {valorTotalCarrinho},00
             </div>
 
           </div>
