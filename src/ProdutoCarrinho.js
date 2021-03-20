@@ -9,9 +9,12 @@ class ProdutoCarrinho extends React.Component {
 
   render() {
 
-    return <div className='produto-container'>                
+    return <div className='produto-carrinho-container'>                
                 <div>{this.props.carrinhoQuantidade} - {this.props.produtoNome} 
-                <button>Apagar</button>
+                <button onClick={this.props.funcaoCarrinhoAumentar}>+</button>
+                <button onClick={this.props.funcaoCarrinhoDiminuir}>-</button>
+                <button onClick={this.props.funcaoCarrinhoDeletar}>Remover Tudo</button>
+
                 </div>
             </div>
   }

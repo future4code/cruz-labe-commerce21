@@ -2,11 +2,17 @@
 
 https://github.com/future4code/cruz-labe-commerce21
 
+## Link do surge:
+http://wide-blade.surge.sh/
+
 ## Desenvolvedores:
 
 - André Luis Santolin  
 - Milena Ribeiro da SIlva  
 - Marcos Maia  
+
+## Imagens: 
+![TelaPrincipal](https://user-images.githubusercontent.com/30267119/111857240-f05b6100-890e-11eb-869c-b7bb22c81ecb.PNG)
 
 ## Funcionalidades: 
 - Exibição de produtos 
@@ -17,13 +23,8 @@ https://github.com/future4code/cruz-labe-commerce21
 - Carrinho de compras
 - Botões de Excluir produto, aumentar ou diminuir itens do carrinho de compras
 - Soma total de valores incluídos no Carrinho de Compras
-
-
-## Link do surge:
-http://thoughtful-distance.surge.sh/
-
-## Imagens: 
-![visualização da tela principal da aplicação](build/static/media/app-visualizacao.PNG)
+- Filtro de ordem para exibição dos produtos em ordem crescente ou decrescente
+- Quantidade total de produtos atualizada conforme filtros são aplicados.
 
 ## Briefing do projeto:  
 

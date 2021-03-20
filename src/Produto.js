@@ -2,17 +2,6 @@ import React from 'react'
 import './Produto.css'
 
 class Produto extends React.Component {
-  state = {
-
-  }
-
-  onClickAdicionarAoCarrinho = () => {
-    this.setState({
-      noCarrinho: !false,
-      numeroCarrinho: this.state.numeroCarrinho + 1,
-      precoCarrinho: this.precoCarrinho + this.props.produtoPreco,
-    })
-  }
 
   render() {
 
@@ -22,13 +11,13 @@ class Produto extends React.Component {
               </div>
               <div className='produto-texto'>
                 <div className='produto-dados'>
-                  
+                  <p>{this.props.id}</p>
                   <p>{this.props.produtoNome}</p>
                   <p>{this.props.produtoPreco}</p>
                 </div>
                 
                 <div className='produto-botao'>
-                    <button onClick={this.props.funcaoBotao}> {this.props.textoBotao} </button>
+                    <button onClick={this.props.funcao}> {this.props.textoBotao} </button>
                 </div>
 
               </div>
